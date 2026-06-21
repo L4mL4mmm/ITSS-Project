@@ -16,8 +16,20 @@ connectDB(); // Kết nối MongoDB
 const app = express();
 
 // Cấu hình CORS
+const allowedOrigins = [
+    process.env.FRONTEND_URL || 'http://localhost:8080',
+    'http://localhost:8081',
+    'http://localhost:8080'
+];
+
 app.use(cors({
-    origin: 'http://localhost:8080', // Đảm bảo rằng đây là địa chỉ frontend của bạn
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            return callback(null, true); // Fallback to allow during dev testing
+        }
+        return callback(null, true);
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
