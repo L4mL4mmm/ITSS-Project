@@ -166,7 +166,7 @@ const Index = () => {
             icon: AlertTriangle,
             color: "text-orange-600",
             bgColor: "bg-orange-50",
-            href: "/food-items?filter=expiring"
+            href: "/fridge?filter=expiring"
         },
         {
             title: "Danh sách mua sắm",
@@ -184,7 +184,7 @@ const Index = () => {
             icon: Refrigerator,
             color: "text-green-600",
             bgColor: "bg-green-50",
-            href: "/food-items" // Changed to /food-items to match common naming for fridge content
+            href: "/fridge"
         },
         {
             title: "Bữa ăn đã lên kế hoạch",
@@ -209,7 +209,7 @@ const Index = () => {
             title: "Quản lý tủ lạnh",
             description: "Cập nhật thực phẩm trong tủ lạnh",
             icon: Refrigerator,
-            href: "/food-items", // Changed to /food-items
+            href: "/fridge",
             gradient: "from-green-500 to-green-600",
         },
         {

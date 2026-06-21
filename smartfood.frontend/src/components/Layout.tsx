@@ -93,7 +93,7 @@ export function Layout({ children }: LayoutProps) {
                 // Nếu người dùng đã đăng nhập
                 <>
                   <Button asChild variant="ghost" size="sm">
-                    <Link to="/profile" className="flex items-center gap-2"> {/* Link đến trang hồ sơ người dùng */}
+                    <Link to="/settings" className="flex items-center gap-2"> {/* Link đến trang hồ sơ người dùng */}
                       <User className="h-4 w-4" />
                       <span className="hidden sm:inline">{username}</span>
                     </Link>
