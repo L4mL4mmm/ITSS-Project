@@ -4,7 +4,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node src/app.js",
-    "start:dev": "nodemon src/app.js"
+    "start:dev": "nodemon src/app.js",
+    "dev": "node src/app.js"
   },
   "keywords": [],
   "author": "",

@@ -1,138 +1,75 @@
-# HƯỚNG DẪN CÀI ĐẶT VÀ SỬ DỤNG DỰ ÁN SMARTFOOD
+# HƯỚNG DẪN CÀI ĐẶT VÀ SỬ DỤNG ỨNG DỤNG SMARTFOOD
 
-Dự án **SmartFood** (Hệ thống đi chợ tiện lợi) là một ứng dụng Full-stack giúp quản lý thực phẩm trong tủ lạnh, lập kế hoạch bữa ăn, đề xuất công thức nấu ăn và quản lý danh sách mua sắm gia đình. 
-
-Dự án được phát triển theo cấu trúc gồm hai phần chính:
-*   `smartfood.frontend`: Giao diện người dùng viết bằng React (Vite + TypeScript)
-*   `smartfood.server`: Server xử lý logic nghiệp vụ và API viết bằng Node.js (Express)
+Hệ thống đi chợ tiện lợi là hệ thống hỗ trợ quản lý thực phẩm thông minh. Hướng dẫn này sẽ giúp bạn tự cài đặt và chạy hệ thống trên máy tính cá nhân từ mã nguồn giải nén.
 
 ---
 
-## 🛠️ CÔNG NGHỆ SỬ DỤNG (TECH STACK)
-
-### Giao diện (Frontend)
-*   **ReactJS (v18) & TypeScript** với trình đóng gói **Vite** tốc độ cao.
-*   **Tailwind CSS & shadcn/ui** (dựa trên Radix UI) cho giao diện hiện đại và mượt mà.
-*   **React Hook Form & Zod** để quản lý và kiểm tra dữ liệu đầu vào (Validation).
-*   **Axios** dùng để gửi các yêu cầu RESTful API đến Server.
-*   **TanStack Query (@tanstack/react-query)** quản lý trạng thái kết nối server và lưu bộ nhớ đệm (caching).
-
-### Máy chủ & Cơ sở dữ liệu (Backend)
-*   **Node.js & Express.js** để xây dựng RESTful APIs.
-*   **MongoDB & Mongoose** dùng làm cơ sở dữ liệu phi quan hệ và mô hình hóa dữ liệu.
-*   **JWT (JSON Web Token)** & **bcryptjs** quản lý đăng nhập, phân quyền và bảo mật mật khẩu.
-
----
-
-## 📋 YÊU CẦU TRƯỚC KHI CÀI ĐẶT (PREREQUISITES)
+## 📋 YÊU CẦU TRƯỚC KHI CÀI ĐẶT
 
 Máy tính của bạn cần được cài đặt sẵn:
-1.  **Node.js** (Khuyên dùng phiên bản LTS từ 18.x trở lên). Tải tại: [nodejs.org](https://nodejs.org/).
-2.  **Cơ sở dữ liệu MongoDB**:
-    *   **Lựa chọn 1 (Khuyên dùng):** Tạo một tài khoản cơ sở dữ liệu đám mây miễn phí tại [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
-    *   **Lựa chọn 2:** Cài đặt cục bộ phiên bản [MongoDB Community Server](https://www.mongodb.com/try/download/community) trên máy tính của bạn và khởi động nó.
+1.  **Node.js** (Phiên bản LTS từ 18.x trở lên). Tải tại: [nodejs.org](https://nodejs.org/).
+2.  **MongoDB Community Server** (Tải tại: [mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)). Đảm bảo dịch vụ MongoDB đang chạy cục bộ trên máy trước khi khởi động dự án.
 
 ---
 
-## 🚀 HƯỚNG DẪN CÀI ĐẶT CHI TIẾT (INSTALLATION)
+## 🚀 CÁC BƯỚC CÀI ĐẶT CHI TIẾT
 
-Thực hiện lần lượt các bước sau:
+### Bước 1: Chuẩn bị thư mục mã nguồn
+1.  Giải nén tệp tin mã nguồn tải về.
+2.  Đổi tên thư mục giải nén thành `SmartFood` (hoặc di chuyển các tệp vào thư mục có tên `SmartFood`).
+3.  Mở **Terminal** (trên macOS/Linux) hoặc **Command Prompt** (trên Windows) và di chuyển vào thư mục dự án:
+    ```bash
+    cd SmartFood
+    ```
 
-### Bước 1: Tải mã nguồn về máy
-Mở terminal hoặc Command Prompt tại thư mục bạn muốn chứa dự án, chạy lệnh:
-```bash
-git clone https://github.com/L4mL4mmm/ITSS-Project.git
-cd ITSS-Project
-```
-
-### Bước 2: Cấu hình biến môi trường cho Server
-1. Truy cập vào thư mục backend: `smartfood.server`.
-2. Tạo một tệp mới tên là `.env` (hoặc mở tệp `.env` đã có sẵn) và cấu hình nội dung như sau:
-```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/smartfood
-JWT_SECRET=smartfood_jwt_secret_key_2026
-FRONTEND_URL=http://localhost:8080
-```
-> 💡 *Lưu ý: Nếu bạn sử dụng MongoDB Atlas, hãy thay đổi giá trị `MONGO_URI` bằng đường dẫn kết nối do MongoDB Atlas cung cấp (ví dụ: `mongodb+srv://<username>:<password>@cluster0.xxx.mongodb.net/smartfood`).*
-
-### Bước 3: Cài đặt thư viện dependencies
-Bạn cần cài đặt các thư viện cần thiết cho cả 2 phần Frontend và Backend:
-
-1.  **Cài đặt cho Backend:**
+### Bước 2: Cấu hình và chạy phần Backend (Server)
+1.  Di chuyển vào thư mục backend và cài đặt thư viện:
     ```bash
     cd smartfood.server
     npm install
     ```
-2.  **Cài đặt cho Frontend:**
+2.  Tạo một tệp tin tên là `.env` trong thư mục `smartfood.server` và sao chép nội dung cấu hình sau vào tệp tin (nếu tệp đã tồn tại, hãy kiểm tra các giá trị cấu hình tương tự):
+    ```env
+    PORT=5000
+    MONGO_URI=mongodb://localhost:27017/smartfood
+    JWT_SECRET=smartfood_jwt_secret_key_2026
+    FRONTEND_URL=http://localhost:8080
+    ```
+    *(Các biến trên cấu hình cơ sở dữ liệu kết nối tới MongoDB cục bộ và cổng kết nối API mặc định cho Frontend).*
+3.  Khởi động server backend bằng lệnh:
     ```bash
-    cd ../smartfood.frontend
+    npm run dev
+    ```
+    *(Lúc này server sẽ khởi chạy thành công tại địa chỉ: **http://localhost:5000**).*
+
+### Bước 3: Cài đặt và chạy phần Frontend (Giao diện người dùng)
+1.  Mở một cửa sổ Terminal khác và tiến hành di chuyển vào thư mục frontend để cài đặt thư viện:
+    ```bash
+    cd SmartFood/smartfood.frontend
     npm install
     ```
+2.  Khởi động giao diện người dùng bằng lệnh:
+    ```bash
+    npm run dev
+    ```
+    *(Giao diện ứng dụng sẽ xuất hiện tại địa chỉ mặc định: **http://localhost:8080**).*
 
 ---
 
-## 💻 HƯỚNG DẪN KHỞI CHẠY DỰ ÁN (RUNNING THE APP)
+## 🔑 TÀI KHOẢN ĐĂNG NHẬP TRẢI NGHIỆM
 
-Để chạy dự án ở chế độ phát triển (Development), bạn cần khởi chạy **cả Server và Frontend đồng thời** bằng 2 cửa sổ terminal riêng biệt:
-
-### 1. Khởi chạy Backend Server
-Mở cửa sổ terminal thứ nhất, di chuyển vào thư mục server và khởi chạy:
-```bash
-cd smartfood.server
-npm start
-```
-Nếu thành công, màn hình sẽ hiển thị:
-```text
-Server running on port 5000
-MongoDB Connected: <tên_host>
-```
-
-### 2. Khởi chạy Frontend React App
-Mở cửa sổ terminal thứ hai, di chuyển vào thư mục frontend và khởi chạy:
-```bash
-cd smartfood.frontend
-npm run dev
-```
-Nếu thành công, Vite sẽ cung cấp địa chỉ truy cập cục bộ:
-*   Mở trình duyệt web và truy cập địa chỉ: **[http://localhost:8080/](http://localhost:8080/)**
-
----
-
-## 🔑 TÀI KHOẢN ĐĂNG NHẬP THỬ NGHIỆM
-
-Bạn có thể sử dụng các tài khoản có sẵn trong cơ sở dữ liệu mẫu để trải nghiệm hệ thống nhanh chóng:
+Bạn có thể sử dụng các tài khoản thử nghiệm sau để đăng nhập vào hệ thống:
 
 | Vai trò | Email đăng nhập | Mật khẩu |
 | :--- | :--- | :--- |
-| **Người dùng mẫu 1** | `me@gmail.com` | `123456` |
-| **Người dùng mẫu 2** | `bo@gmail.com` | `123456` |
+| **Quản trị viên (Admin)** | `admin@gmail.com` | `123456` |
+| **Trưởng nhóm (Người dùng 1)** | `me@gmail.com` | `123456` |
+| **Thành viên (Người dùng 2)** | `bo@gmail.com` | `123456` |
+
+> ⚠️ **Lưu ý:** Đây là tài khoản dùng thử. Vui lòng không đổi mật khẩu hoặc xóa dữ liệu nếu không thực sự cần thiết.
 
 ---
 
-## 📂 CẤU TRÚC THƯ MỤC CHÍNH
+Hoàn tất! Bạn đã cài đặt thành công hệ thống SmartFood. Nếu gặp lỗi hoặc có đóng góp ý kiến, hãy gửi phản hồi tại mục Issues của repository: https://github.com/L4mL4mmm/ITSS-Project.git
 
-### Backend (`smartfood.server/src/`)
-*   `config/db.js`: Cấu hình kết nối cơ sở dữ liệu MongoDB.
-*   `controllers/`: Nơi xử lý logic nghiệp vụ chính (Auth, Thực phẩm, Kế hoạch ăn uống, Nhóm gia đình...).
-*   `middleware/`: Chứa mã kiểm tra quyền truy cập (Auth token) và xác thực người dùng.
-*   `models/`: Khai báo cấu trúc bảng (Schemas) dữ liệu MongoDB.
-*   `routes/`: Định nghĩa các API endpoint kết nối Frontend.
-
-### Frontend (`smartfood.frontend/src/`)
-*   `components/`: Các thành phần giao diện dùng chung (Sidebar, Layout, Dialog...).
-*   `pages/`: Chứa giao diện các trang chính (Fridge, MealPlan, Recipes, ShoppingList, Login/Register...).
-*   `services/`: Các hàm gọi API (sử dụng Axios) giao tiếp với Backend.
-*   `index.css`: Cấu hình Tailwind CSS.
-
----
-
-## 🌐 HƯỚNG DẪN TRIỂN KHAI LÊN INTERNET (DEPLOYMENT)
-
-Khi bạn muốn đưa ứng dụng lên mạng internet chạy thực tế:
-
-1.  **Cơ sở dữ liệu:** Sử dụng **MongoDB Atlas** để lưu trữ cơ sở dữ liệu đám mây ổn định.
-2.  **Backend:** Triển khai mã nguồn thư mục `smartfood.server` lên **Render**, **Railway**, hoặc **Koyeb**. 
-    *   Hãy khai báo đầy đủ các biến môi trường trong cấu hình Deploy của dịch vụ (như `MONGO_URI`, `JWT_SECRET`, `PORT`).
-3.  **Frontend:** Triển khai mã nguồn thư mục `smartfood.frontend` lên **Cloudflare Pages**, **Vercel**, hoặc **Netlify**.
-    *   Khai báo biến môi trường `VITE_BACKEND_URL` trỏ về địa chỉ server backend đã deploy để kết nối dữ liệu.
+Chúc bạn có trải nghiệm sử dụng vui vẻ!
